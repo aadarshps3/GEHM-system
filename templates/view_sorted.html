@@ -1,4 +1,4 @@
-{% extends 'contractors.html' %}
+{% extends 'adminindex.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -36,15 +36,15 @@
         <div class="card-header  bg-primary">
             <strong class="card-title " style="color:white">CONTRACTOR DETAILS</strong>
            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <div class="card">
-                <div class="card-body">
+<!--            <div class="card">-->
+<!--                <div class="card-body">-->
 
-      <form method="get" class="form-inline d-flex" action="{% url 'search_emp' %}">
-        {{form}}
-        <button class="btn btn-warning" style="float:right;" type="submit">Search</button>
-      </form>
-    </div>
-                </div>
+<!--      <form method="get" class="form-inline d-flex" action="{% url 'search_emp' %}">-->
+<!--        {{form}}-->
+<!--        <button class="btn btn-warning" style="float:right;" type="submit">Search</button>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--                </div>-->
                </div>
         </div>
         <div class="card-body">
@@ -75,9 +75,9 @@
         <td><a href="{{i.Latest_CV}}" download>Download File</a>
         <td>
          {% if i.approval_status == 0 %}
-            <a class="btn-sm btn btn-danger " href="{% url 'Sort_Employee' i.user_id  %}">Sort</a>
+            <button class="btn btn-danger">Not Sorted</button>
             {% elif i.approval_status == 1 %}
-            <button class="btn-sm btn btn-primary">Sorted</button>
+            <button class="btn-sm btn btn-success">Sorted</button>
             {% else %}
             <button class="btn-sm btn btn-warning ">Rejected</button>
             {% endif %}

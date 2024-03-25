@@ -31,6 +31,7 @@ class GuestEmployee(models.Model):
     Experiance=models.CharField(max_length=2)
     Skills=models.TextField()
     Job_Preference=models.CharField(max_length=200)
+    approval_status = models.BooleanField(default=0)
 
 AMOUNT=(
     ('500','500'),

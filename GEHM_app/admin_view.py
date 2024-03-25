@@ -104,3 +104,7 @@ def chat_add_ad_gu(request):
     else:
         form = ChatFormAD()
     return render(request,'chat_add_ad_gu.html',{'form':form})
+
+def view_sorted(request):
+    data = GuestEmployee.objects.all()
+    return render(request,'view_sorted.html',{'data':data})

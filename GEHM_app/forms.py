@@ -25,7 +25,7 @@ class GuestForm(forms.ModelForm):
     DOB= forms.DateField(widget=DateInput)
     class Meta:
         model=GuestEmployee
-        exclude=('user',)
+        exclude=('user','approval_status')
 
 class PaymentForm(forms.ModelForm):
     class Meta:

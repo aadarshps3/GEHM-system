@@ -24,6 +24,7 @@ urlpatterns=[
     path('chat_view_gue_admin',admin_view.chat_view_gue_admin,name='chat_view_gue_admin'),
     path('chat_add_ad',admin_view.chat_add_ad,name='chat_add_ad'),
     path('chat_add_ad_gu',admin_view.chat_add_ad_gu,name='chat_add_ad_gu'),
+    path('view_sorted',admin_view.view_sorted,name='view_sorted'),
 
 
 
@@ -43,6 +44,7 @@ urlpatterns=[
     path('chat_base',contractor_view.chat_base,name='chat_base'),
     path('Enquiry_contractor',contractor_view.Enquiry_contractor,name='Enquiry_contractor'),
     path('reply_enquiry/<int:id>/',contractor_view.reply_enquiry,name='reply_enquiry'),
+    path('Sort_Employee/<int:id>/',contractor_view.Sort_Employee,name='Sort_Employee'),
 
 
     path('view_contra',guest.view_contra,name='view_contra'),

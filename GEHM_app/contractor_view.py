@@ -170,3 +170,10 @@ def reply_enquiry(request, id):
         messages.info(request, 'Reply send for complaint')
         return redirect('Enquiry_contractor')
     return render(request, 'reply_enquiry.html', {'feedback': f})
+
+def Sort_Employee(request,id):
+    emp = GuestEmployee.objects.get(user_id=id)
+    emp.approval_status = True
+    emp.save()
+    messages.info(request,'approved')
+    return redirect('search_emp')
