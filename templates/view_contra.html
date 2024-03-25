@@ -1,0 +1,42 @@
+{% extends 'guest_emp.html' %}
+{% block content %}
+<div class="card">
+<div class="card">
+
+        <div class="card-header  bg-primary">
+            <strong class="card-title " style="color:white">CONTRACTOR DETAILS</strong>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+    <tr>
+        <th scope="col">SI NO</th>
+        <th scope="col">NAME</th>
+        <th scope="col">PHONE NO</th>
+        <th scope="col">COMPANY NAME</th>
+        <th scope="col">REGISTRATION ID</th>
+        <th scope="col">HOME ADDRESS</th>
+        <th scope="col">COMPANY ADDRESS</th>
+        <th scope="col">PHOTO</th>
+    </tr>
+                </thead>
+                <tbody>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.Name}}</td>
+        <td>{{i.Phone_No}}</td>
+        <td>{{i.Company_Name}}</td>
+        <td>{{i.Registration_ID}}</td>
+        <td>{{i.Home_Address}}</td>
+        <td>{{i.Company_Address}}</td>
+        <td><img src="{{ i.Profile_photo.url }}" height="80px"></td>
+
+    </tr>
+    {% endfor %}
+                </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}

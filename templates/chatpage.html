@@ -1,0 +1,12 @@
+{% extends 'contractors.html' %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <a href="{% url 'chat_add_con' %}" class="btn btn-success" style="margin-left:300px">Chat</a>
+        <a href="{% url 'chat_view_con' %}" class="btn btn-danger">View Chat</a>
+    </div>
+
+</div>
+
+{% endblock %}

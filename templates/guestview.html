@@ -1,0 +1,47 @@
+{% extends 'adminindex.html' %}
+{% block content %}
+<div class="card">
+<div class="card">
+
+        <div class="card-header  bg-primary">
+            <strong class="card-title " style="color:white">GUEST EMPLOYEE DETAILS</strong>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+   <tr>
+        <th scope="col">SI NO</th>
+        <th scope="col">NAME</th>
+        <th scope="col">DATE OF BIRTH</th>
+        <th scope="col">ADDRESS</th>
+        <th scope="col">MOBILE NUMBER</th>
+        <th scope="col">EXPERIENCE</th>
+        <th scope="col">SKILLS</th>
+        <th scope="col">JOB PREFERENCE</th>
+        <th scope="col">PHOTO</th>
+        <th scope="col">CV</th>
+    </tr>
+                </thead>
+                <tbody>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.Name}}</td>
+        <td>{{i.DOB}}</td>
+        <td>{{i.Address}}</td>
+        <td>{{i.Mobile_No}}</td>
+        <td>{{i.Experiance}}</td>
+        <td>{{i.Skills}}</td>
+        <td>{{i.Job_Preference}}</td>
+        <td><img src="{{ i.Photo.url }}" height="80px"></td>
+        <td><a href="{{i.Latest_CV}}" download>Download File</a>
+</td>
+
+    </tr>
+    {% endfor %}
+                </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}

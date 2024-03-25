@@ -1,0 +1,10 @@
+{% extends 'adminindex.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- start_chat.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+</form>
+{% endblock %}

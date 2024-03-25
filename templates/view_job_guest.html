@@ -1,0 +1,37 @@
+{% extends 'guest_emp.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Job View</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>SI No</th>
+                          <th>JOB PREFERENCE</th>
+                          <th>SECTOR</th>
+                          <th>QUALIFICATION</th>
+                          <th>REQUIRED POSITIONS</th>
+<!--                          <th>ACTION</th>-->
+                      </tr>
+                      </thead>
+                        <tbody>
+                        {% for f in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{f.Job_Preference}}</td>
+                            <td>{{f.Sector}}</td>
+                            <td>{{f.Qualifications}}</td>
+                            <td>{{f.Required_Positions}}</td>
+<!--                            <td><a href="{% url 'del_jobopen' f.id %}">Delete</a></td>-->
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+</div>
+{% endblock %}

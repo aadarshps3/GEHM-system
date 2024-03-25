@@ -1,0 +1,88 @@
+{% extends 'contractors.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<!-- search_results.html -->
+<!--    <div class="card" style="margin-left:800px;">-->
+<!--                <div class="card-body">-->
+<!--            <form method="get" action="{% url 'search_emp' %}" >-->
+<!--      {{ form.as_p }}-->
+<!--    <input type="submit" value="Submit" class="btn btn-warning">-->
+<!--</form>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--    <form method="GET">-->
+<!--        <label for="skills">Search by Skills:</label>-->
+<!--        <input type="text" id="skills" name="skills">-->
+<!--        <button class="btn btn-success" type="submit">Search</button>-->
+<!--    </form>-->
+
+<!--    {% if employees %}-->
+<!--        <ul>-->
+<!--            {% for employee in employees %}-->
+<!--                <li>{{ employee.Name }}</li>-->
+<!--                &lt;!&ndash; Display other employee details as needed &ndash;&gt;-->
+<!--            {% empty %}-->
+<!--                <li>No employees found.</li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+<!--    {% elif request.GET.skills %}-->
+<!--        <p>No employees found matching the provided skills.</p>-->
+<!--    {% endif %}-->
+
+<div class="card">
+<div class="card">
+        <div class="card-header  bg-primary">
+            <strong class="card-title " style="color:white">CONTRACTOR DETAILS</strong>
+           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <div class="card">
+                <div class="card-body">
+
+      <form method="get" class="form-inline d-flex" action="{% url 'search_emp' %}">
+        {{form}}
+        <button class="btn btn-warning" style="float:right;" type="submit">Search</button>
+      </form>
+    </div>
+                </div>
+               </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+    <tr>
+        <th scope="col">SI NO</th>
+        <th scope="col">NAME</th>
+        <th scope="col">DATE OF BIRTH</th>
+        <th scope="col">ADDRESS</th>
+        <th scope="col">MOBILE NUMBER</th>
+        <th scope="col">EXPERIENCE</th>
+        <th scope="col">SKILLS</th>
+        <th scope="col">JOB PREFERENCE</th>
+        <th scope="col">PHOTO</th>
+        <th scope="col">CV</th>
+    </tr>
+                </thead>
+                <tbody>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.Name}}</td>
+        <td>{{i.DOB}}</td>
+        <td>{{i.Address}}</td>
+        <td>{{i.Mobile_No}}</td>
+        <td>{{i.Experiance}}</td>
+        <td>{{i.Skills}}</td>
+        <td>{{i.Job_Preference}}</td>
+        <td><img src="{{ i.Photo.url }}" height="80px"></td>
+        <td><a href="{{i.Latest_CV}}" download>Download File</a>
+</td>
+
+    </tr>
+    {% endfor %}
+                </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}

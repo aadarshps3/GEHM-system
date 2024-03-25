@@ -1,0 +1,10 @@
+{% extends 'contractors.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <a href="{% url 'add_jobpref' %}" class="btn btn-warning">Add Job Preferences</a>
+    <a href="{% url 'view_job' %}" class="btn btn-success">View Job Preferences</a>
+  </div>
+
+</div>
+{% endblock %}

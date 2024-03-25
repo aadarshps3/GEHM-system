@@ -1,0 +1,12 @@
+{% extends 'contractors.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div>
+        {{form|crispy}}
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+
+</form>
+{% endblock %}
