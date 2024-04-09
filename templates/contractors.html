@@ -73,11 +73,27 @@
   </div>
 </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{% url 'job_view' %}" aria-expanded="false">
+              <a class="sidebar-link" href="{% url 'add_job_con' %}" aria-expanded="false">
                 <span>
                   <i class="ti ti-cards"></i>
                 </span>
-                <span class="hide-menu">job preferences</span>
+                <span class="hide-menu">Add job preferences</span>
+              </a>
+            </li>
+              <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'sented_job' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-cards"></i>
+                </span>
+                <span class="hide-menu">View Applied Jobs</span>
+              </a>
+            </li>
+              <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'pay_emp_fee' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Pay Salaries</span>
               </a>
             </li>
             <li class="sidebar-item">

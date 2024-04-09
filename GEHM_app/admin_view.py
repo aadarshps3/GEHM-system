@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from GEHM_app.forms import ChatForm, ChatFormAD, ChatFormGUE
-from GEHM_app.models import Contractor, GuestEmployee, Job, Chat, User, CHAT_CON, CHAT_GUE
+from GEHM_app.models import Contractor, GuestEmployee, Job, Chat, User, CHAT_CON, CHAT_GUE, Jobs, JobApplication
 
 
 def contractor_view(request):
@@ -108,3 +108,14 @@ def chat_add_ad_gu(request):
 def view_sorted(request):
     data = GuestEmployee.objects.all()
     return render(request,'view_sorted.html',{'data':data})
+
+def view_all_job_applications(request):
+    job_applications = JobApplication.objects.all()
+    return render(request, 'view_all_job_applications.html', {'job_applications': job_applications})
+
+def sent_job(request, id):
+    a = JobApplication.objects.get(id=id)
+    a.approval_status = 1
+    a.save()
+    messages.info(request, 'Job sented')
+    return redirect('view_all_job_applications')

@@ -1,8 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from GEHM_app.forms import FeedbackForm, ChatFormGUE
-from GEHM_app.models import Contractor, Job, Enquiry, CHAT_GUE
+from GEHM_app.models import Contractor, Job, Enquiry, CHAT_GUE, Jobs, JobApplication, GuestEmployee, Payment
 
 
 def view_contra(request):
@@ -52,3 +53,28 @@ def chat_view_gue(request):
     chat1=CHAT_GUE.objects.filter(user=u)
     print(chat1)
     return render(request,'chat_view_gue.html',{'chat':chat,'chat1':chat1})
+
+
+def job_list(request):
+    jobs = Jobs.objects.all()
+    return render(request, 'job_list.html', {'jobs': jobs})
+
+@login_required
+def job_detail(request, job_id):
+    job = Jobs.objects.get(id=job_id)
+    return render(request, 'job_detail.html', {'job': job})
+
+@login_required
+def apply_job(request, job_id):
+    if request.method == 'POST':
+        job = Jobs.objects.get(id=job_id)
+        applicant = GuestEmployee.objects.get(user=request.user)
+        JobApplication.objects.create(job=job, applicant=applicant)
+        return redirect('job_list')  # Redirect to the job list page
+
+def view_payment_gue(request):
+    u=GuestEmployee.objects.get(user=request.user)
+    data = Payment.objects.filter(user=u)
+    return render(request,'view_payment_gue.html',{'data':data})
+
+

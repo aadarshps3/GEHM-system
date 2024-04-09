@@ -1,0 +1,12 @@
+{% extends 'adminindex.html' %}
+{% block content %}
+<h1>Job: {{ job.title }}</h1>
+    <h2>Applications:</h2>
+    <ul>
+        {% for application in job_applications %}
+            <li>{{ application.applicant.username }}</li>
+        {% empty %}
+            <li>No applications yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

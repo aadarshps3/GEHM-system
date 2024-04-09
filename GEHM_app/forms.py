@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 
-from GEHM_app.models import Contractor, User, GuestEmployee, Regfee, Job, Chat, CHAT_CON, Enquiry, CHAT_GUE, CHAT_AD
+from GEHM_app.models import Contractor, User, GuestEmployee, Regfee, Job, Chat, CHAT_CON, Enquiry, CHAT_GUE, CHAT_AD, \
+    Jobs, Payment
 
 
 class DateInput(forms.DateInput):
@@ -34,7 +35,7 @@ class PaymentForm(forms.ModelForm):
 
 class JobForm(forms.ModelForm):
     class Meta:
-        model=Job
+        model=Jobs
         fields="__all__"
 
 class SearchForm(forms.Form):
@@ -66,3 +67,8 @@ class ChatFormGUE(forms.ModelForm):
     class Meta:
         model = CHAT_GUE
         fields = ('desc',)
+
+class PaymentFormEmp(forms.ModelForm):
+    class Meta:
+        model=Payment
+        fields = '__all__'

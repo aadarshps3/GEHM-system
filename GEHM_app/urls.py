@@ -25,6 +25,8 @@ urlpatterns=[
     path('chat_add_ad',admin_view.chat_add_ad,name='chat_add_ad'),
     path('chat_add_ad_gu',admin_view.chat_add_ad_gu,name='chat_add_ad_gu'),
     path('view_sorted',admin_view.view_sorted,name='view_sorted'),
+    path('view_all_job_applications', admin_view.view_all_job_applications, name='view_all_job_applications'),
+    path('sent_job/<int:id>/', admin_view.sent_job, name='sent_job'),
 
 
 
@@ -45,6 +47,11 @@ urlpatterns=[
     path('Enquiry_contractor',contractor_view.Enquiry_contractor,name='Enquiry_contractor'),
     path('reply_enquiry/<int:id>/',contractor_view.reply_enquiry,name='reply_enquiry'),
     path('Sort_Employee/<int:id>/',contractor_view.Sort_Employee,name='Sort_Employee'),
+    path('add_job_con',contractor_view.add_job_con,name='add_job_con'),
+    path('sented_job',contractor_view.sented_job,name='sented_job'),
+    path('pay_emp_fee',contractor_view.pay_emp_fee,name='pay_emp_fee'),
+    path('payment_viewemp',contractor_view.payment_viewemp,name='payment_viewemp'),
+
 
 
     path('view_contra',guest.view_contra,name='view_contra'),
@@ -53,5 +60,10 @@ urlpatterns=[
     path('Enquiry_view',guest.Enquiry_view,name='Enquiry_view'),
     path('chat_add_gue',guest.chat_add_gue,name='chat_add_gue'),
     path('chat_view_gue',guest.chat_view_gue,name='chat_view_gue'),
+    path('job_list',guest.job_list,name='job_list'),
+    path('job_detail/<int:job_id>/',guest.job_detail,name='job_detail'),
+    path('apply_job/<int:job_id>/',guest.apply_job,name='apply_job'),
+    path('view_payment_gue',guest.view_payment_gue,name='view_payment_gue'),
+
 
 ]

@@ -5,8 +5,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
-from GEHM_app.forms import PaymentForm, JobForm, ContractorForm, SearchForm, ChatForm
-from GEHM_app.models import Regfee, Job, Contractor, GuestEmployee, CHAT_CON, Enquiry
+from GEHM_app.forms import PaymentForm, JobForm, ContractorForm, SearchForm, ChatForm, PaymentFormEmp
+from GEHM_app.models import Regfee, Job, Contractor, GuestEmployee, CHAT_CON, Enquiry, Jobs, JobApplication, Payment
 
 
 def con_base(request):
@@ -177,3 +177,45 @@ def Sort_Employee(request,id):
     emp.save()
     messages.info(request,'approved')
     return redirect('search_emp')
+
+
+
+def add_job_con(request):
+    if request.method == 'POST':
+        form = JobForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.contractor = request.user.contractor
+            job.save()
+            return redirect('con_base')  # Redirect to the job list page
+    else:
+        form = JobForm()
+    return render(request, 'add_job.html', {'form': form})
+
+def sented_job(request):
+    user = request.user
+    if hasattr(user, 'contractor'):
+        try:
+            contractor_jobs = Jobs.objects.filter(contractor=user.contractor)
+            job_applications = JobApplication.objects.filter(job__in=contractor_jobs,approval_status=1)
+            return render(request, 'sented_job.html', {'job_applications': job_applications})
+        except Jobs.DoesNotExist:
+            # Handle case where no jobs are found for the contractor
+            return render(request, 'sented_job.html', {'job_applications': None})
+    else:
+        # Handle case where user is not a Contractor
+        return render(request, 'error.html', {'message': 'You are not a Contractor'})
+
+
+def pay_emp_fee(request):
+    form=PaymentFormEmp()
+    if request.method=='POST':
+        form=PaymentFormEmp(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payment_viewemp')
+    return render(request,'pay_emp_fee.html',{'form':form})
+
+def payment_viewemp(request):
+    data=Payment.objects.all()
+    return render(request,'payment_viewemp.html',{'data':data})
