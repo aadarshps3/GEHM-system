@@ -17,7 +17,8 @@ def pay_reg_fee(request):
         form=PaymentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('conctracor_index')
+            messages.info(request, ' Payment Completed Successfully')
+            return redirect('pay_reg_fee')
     return render(request,'pay_reg_fee.html',{'form':form})
 
 def payment_view(request):
@@ -72,7 +73,8 @@ def add_jobpref(request):
         form=JobForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('job_view')
+            messages.info(request,"Job Preference Addedd Successfully")
+            return redirect('add_jobpref')
     return render(request,'add_jobpref.html',{'form':form})
 
 def view_job(request):
@@ -187,7 +189,8 @@ def add_job_con(request):
             job = form.save(commit=False)
             job.contractor = request.user.contractor
             job.save()
-            return redirect('con_base')  # Redirect to the job list page
+            messages.info(request,"Job Prefference Added Successfully")
+            return redirect('add_job_con')  # Redirect to the job list page
     else:
         form = JobForm()
     return render(request, 'add_job.html', {'form': form})
@@ -213,7 +216,8 @@ def pay_emp_fee(request):
         form=PaymentFormEmp(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('payment_viewemp')
+            messages.info(request,"Payment Added Successfully")
+            return redirect('pay_emp_fee')
     return render(request,'pay_emp_fee.html',{'form':form})
 
 def payment_viewemp(request):

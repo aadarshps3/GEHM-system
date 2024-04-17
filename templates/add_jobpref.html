@@ -2,6 +2,11 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <form method="post">
+         {% for message in messages %}
+    <div class="alert alert-info" role="alert">
+        {{message}}
+    </div>
+                        {% endfor %}
     {% csrf_token %}
     <div>
         {{form|crispy}}

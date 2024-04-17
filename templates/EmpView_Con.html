@@ -58,7 +58,7 @@
         <th scope="col">SKILLS</th>
         <th scope="col">JOB PREFERENCE</th>
         <th scope="col">PHOTO</th>
-        <th scope="col">CV</th>
+        <th scope="col">ADHAR</th>
         <th scope="col">CONNECT</th>
     </tr>
                 </thead>
@@ -72,7 +72,7 @@
         <td>{{i.Skills}}</td>
         <td>{{i.Job_Preference}}</td>
         <td><img src="{{ i.Photo.url }}" height="80px"></td>
-        <td><a href="{{i.Latest_CV}}" download>Download File</a>
+        <td><a href="{{i.Adhar.url}}" download>Download File</a>
         <td>
          {% if i.approval_status == 0 %}
             <a class="btn-sm btn btn-danger " href="{% url 'Sort_Employee' i.user_id  %}">Sort</a>
