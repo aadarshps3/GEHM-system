@@ -38,6 +38,12 @@
                     <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
                     <a class="text-primary fw-bold ms-2" href="{% url 'loginpage' %}">Sign In</a>
                   </div>
+                  <form method="post">
+         {% for message in messages %}
+    <div class="alert alert-info" role="alert">
+        {{message}}
+    </div>
+                        {% endfor %}
                 </form>
               </div>
             </div>

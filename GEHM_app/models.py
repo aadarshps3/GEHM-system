@@ -118,3 +118,11 @@ class Payment(models.Model):
     Name_on_the_card=models.CharField(max_length=50)
     Amount=models.CharField(max_length=100,choices=AMOUNT)
     date=models.DateField(auto_now=True)
+
+class chats(models.Model):
+    user=models.CharField(max_length=100)
+    chat_id=models.CharField(max_length=100)
+    desc = models.TextField()
+    date = models.DateField(auto_now=True)
+    def __str__(self):
+        return self.user

@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from GEHM_app.forms import PaymentForm, JobForm, ContractorForm, SearchForm, ChatForm, PaymentFormEmp
 from GEHM_app.models import Regfee, Job, Contractor, GuestEmployee, CHAT_CON, Enquiry, Jobs, JobApplication, Payment
+from GEHM_app.models import chats as chats_db
 
 
 def con_base(request):
@@ -138,26 +139,27 @@ def chat_base(request):
 
 def chat_add_con(request):
     form = ChatForm()
-    u = request.user
+    u = Contractor.objects.get(user=request.user)
     if request.method == 'POST':
         form = ChatForm(request.POST)
         if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = u
-            obj.save()
-            messages.info(request, 'Complaint Registered Successfully')
+            user_input = form.cleaned_data['desc']
+            chats_db.objects.create(user=u, chat_id="admin_" + u.Name, desc=user_input)
+
+            # obj = form.save(commit=False)
+            # obj.user = u
+            # obj.save()
+            # messages.info(request, 'Complaint Registered Successfully')
             return redirect('chat_view_con')
     else:
         form = ChatForm()
     return render(request,'chat_add_con.html',{'form':form})
 
 def chat_view_con(request):
-    u= request.user
-    print(u)
-    chat = CHAT_CON.objects.exclude(user=u)
-    chat1=CHAT_CON.objects.filter(user=u)
-    print(chat1)
-    return render(request,'chat_view_con.html',{'chat':chat,'chat1':chat1})
+    u = Contractor.objects.get(user=request.user)
+    id = "admin_" + u.Name
+    data = chats_db.objects.filter(chat_id=id)
+    return render(request,'chat_view_con.html',{'chat':data})
 
 def Enquiry_contractor(request):
     f = Enquiry.objects.all()

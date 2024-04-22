@@ -54,6 +54,13 @@
           border-radius: 0px 30px 30px 30px;
           width:400px;
       }
+            .chat-message_admin {
+          border:5px solid #adb5bd;
+          margin-top:3px;
+          padding:20px;
+          border-radius: 30px 0px 30px 30px;
+          width:400px;
+      }
       .message-header {
         font-weight: bold;
         margin-bottom: 10px;
@@ -89,27 +96,28 @@
   <body>
     <div class="chat-container">
       <div class="chat-history">
-        {% for i in chat %}
-        <div class="chat-message">
-          <div class="message-header" style="color:red;">{{ i.user }}</div>
-          <div class="message-text">{{ i.desc }}</div>
-          <div class="message-time">{{ i.date }}</div>
-        </div>
-        {% endfor %}
-<!--      </div>-->
-<!--      <div class="chat-container">-->
-<!--      <div class="chatinput">-->
-        {% for i in chat1 %}
-        <div class="chat-meg">
-          <div class="message-header" style="color:green;">{{ i.user }}</div>
-          <div class="message-text">{{ i.desc }}</div>
-          <div class="message-time">{{ i.date }}</div>
-        </div>
-        {% endfor %}
+
+          {% for i in chat %}
+            {% if i.user == 'admin' %}
+              <div class="chat-message">
+                <div class="message-header" style="color:red;">{{ i.user }}</div>
+                <div class="message-text">{{ i.desc }}</div>
+                <div class="message-time">{{ i.date }}</div>
+              </div>
+            {% else %}
+              <div class="chat-message_admin" style="margin-left:50%">
+                <div class="message-header" style="color:red;">{{ i.user }}</div>
+                <div class="message-text">{{ i.desc }}</div>
+                <div class="message-time">{{ i.date }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+
       </div>
       <form class="chat-input" style="text-align:left;">
           <div class="d-grid gap-2">
-          <a class="btn btn-primary"  href="{% url 'chat_add_con' %}" type="button">Chat</a>
+          <a class="btn btn-primary"  href="{% url 'chat_add_gue' %}" type="button">Chat</a>
           </div>
 <!--          <a class="btn btn-primary" >Add Chat</a>-->
 <!--        <input type="text" placeholder="Type your message here...">-->

@@ -54,6 +54,13 @@
           border-radius: 0px 30px 30px 30px;
           width:400px;
       }
+      .chat-message_admin {
+          border:5px solid #adb5bd;
+          margin-top:3px;
+          padding:20px;
+          border-radius: 30px 0px 30px 30px;
+          width:400px;
+      }
       .message-header {
         font-weight: bold;
         margin-bottom: 10px;
@@ -87,15 +94,28 @@
     </style>
   </head>
   <body>
+  {% for i in data %}
+<a href="/view_chat_Contra/{{i.Name}}"> {{i.Name}}</a>
+{% endfor %}
     <div class="chat-container">
       <div class="chat-history">
-        {% for i in chats %}
-        <div class="chat-message">
-          <div class="message-header" style="color:red;">{{ i.user }}</div>
-          <div class="message-text">{{ i.desc }}</div>
-          <div class="message-time">{{ i.date }}</div>
-        </div>
-        {% endfor %}
+
+          {% for i in chats %}
+            {% if i.user != 'admin' %}
+              <div class="chat-message">
+                <div class="message-header" style="color:red;">{{ i.user }}</div>
+                <div class="message-text">{{ i.desc }}</div>
+                <div class="message-time">{{ i.date }}</div>
+              </div>
+            {% else %}
+              <div class="chat-message_admin" style="margin-left:50%">
+                <div class="message-header" style="color:red;">{{ i.user }}</div>
+                <div class="message-text">{{ i.desc }}</div>
+                <div class="message-time">{{ i.date }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
 <!--      </div>-->
 <!--      <div class="chat-container">-->
 <!--      <div class="chatinput">-->

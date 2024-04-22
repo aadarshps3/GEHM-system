@@ -27,6 +27,8 @@ urlpatterns=[
     path('view_sorted',admin_view.view_sorted,name='view_sorted'),
     path('view_all_job_applications', admin_view.view_all_job_applications, name='view_all_job_applications'),
     path('sent_job/<int:id>/', admin_view.sent_job, name='sent_job'),
+    path('view_chat_Emp/<Name>/', admin_view.view_chat_Emp, name='view_chat_Emp'),
+    path('view_chat_Contra/<Name>/', admin_view.view_chat_Contra, name='view_chat_Contra'),
 
 
 

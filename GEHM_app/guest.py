@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 
 from GEHM_app.forms import FeedbackForm, ChatFormGUE
 from GEHM_app.models import Contractor, Job, Enquiry, CHAT_GUE, Jobs, JobApplication, GuestEmployee, Payment
+from GEHM_app.models import chats as chats_db
 
 
 def view_contra(request):
@@ -33,26 +34,33 @@ def Enquiry_view(request):
 
 def chat_add_gue(request):
     form = ChatFormGUE()
-    u = request.user
+    u = GuestEmployee.objects.get(user=request.user)
     if request.method == 'POST':
         form = ChatFormGUE(request.POST)
         if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = u
-            obj.save()
-            messages.info(request, 'Complaint Registered Successfully')
+            user_input = form.cleaned_data['desc']
+            chats_db.objects.create(user=u,chat_id="admin_"+u.Name,desc=user_input)
+
+            # obj = form.save(commit=False)
+            # obj.user = u
+            # obj.save()
+            # messages.info(request, 'Complaint Registered Successfully')
             return redirect('chat_view_gue')
     else:
         form = ChatFormGUE()
     return render(request,'chat_add_gue.html',{'form':form})
 
 def chat_view_gue(request):
-    u= request.user
-    print(u)
-    chat = CHAT_GUE.objects.exclude(user=u)
-    chat1=CHAT_GUE.objects.filter(user=u)
-    print(chat1)
-    return render(request,'chat_view_gue.html',{'chat':chat,'chat1':chat1})
+    # u= request.user
+    # print(u)
+    # chat = CHAT_GUE.objects.exclude(user=u)
+    # chat1=CHAT_GUE.objects.filter(user=u)
+    # print(chat1)
+    u = GuestEmployee.objects.get(user=request.user)
+    id="admin_"+u.Name
+    data=chats_db.objects.filter(chat_id=id)
+
+    return render(request,'chat_view_gue.html',{'chat': data})
 
 
 def job_list(request):

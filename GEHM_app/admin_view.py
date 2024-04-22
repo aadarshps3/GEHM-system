@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 
 from GEHM_app.forms import ChatForm, ChatFormAD, ChatFormGUE
 from GEHM_app.models import Contractor, GuestEmployee, Job, Chat, User, CHAT_CON, CHAT_GUE, Jobs, JobApplication
+from GEHM_app.models import chats as chats_db
 
 
 def contractor_view(request):
@@ -46,8 +47,16 @@ def send_message(request):
 
 @login_required
 def chat_view(request):
-    chats = CHAT_CON.objects.all()
-    return render(request, 'chat_view.html', {'chats': chats})
+    data = Contractor.objects.all()
+    return render(request, 'chat_view.html', {'data': data})
+
+def view_chat_Contra(request,Name):
+    print(Name)
+    request.session['chat_name']=Name
+    data = Contractor.objects.all()
+    chats = chats_db.objects.filter(chat_id="admin_"+Name)
+
+    return render(request, 'chat_view.html', {'chats': chats,'data': data})
 
 # def chat_view(request):
 #     u= request.user
@@ -75,30 +84,48 @@ def chat_view(request):
 def chat_add_ad(request):
     form = ChatForm()
     u = request.user
+
     if request.method == 'POST':
         form = ChatForm(request.POST)
         if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = u
-            obj.save()
+            Name = request.session['chat_name']
+            user_input = form.cleaned_data['desc']
+            print(user_input, ">>>>>>>>>>>>>>>>>")
+            chats_db.objects.create(user="admin", chat_id="admin_" + Name, desc=user_input)
+            # obj = form.save(commit=False)
+            # obj.user = u
+            # obj.save()
             messages.info(request, 'Complaint Registered Successfully')
             return redirect('chat_view')
     else:
         form = ChatFormAD()
     return render(request,'chat_add_ad.html',{'form':form})
 def chat_view_gue_admin(request):
-    chats = CHAT_GUE.objects.all()
-    return render(request, 'chat_view_gue_admin.html', {'chats': chats})
+    data=GuestEmployee.objects.all()
+    return render(request, 'chat_view_gue_admin.html', {'data':data})
+
+def view_chat_Emp(request,Name):
+    print(Name)
+    request.session['chat_name']=Name
+    data = GuestEmployee.objects.all()
+    chats = chats_db.objects.filter(chat_id="admin_"+Name)
+
+    return render(request, 'chat_view_gue_admin.html', {'chats': chats,'data': data})
 
 def chat_add_ad_gu(request):
     form = ChatFormGUE()
     u = request.user
+
     if request.method == 'POST':
         form = ChatFormGUE(request.POST)
         if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = u
-            obj.save()
+            Name=request.session['chat_name']
+            user_input = form.cleaned_data['desc']
+            print(user_input,">>>>>>>>>>>>>>>>>")
+            chats_db.objects.create(user="admin", chat_id="admin_" + Name, desc=user_input)
+            # obj = form.save(commit=False)
+            # obj.user = u
+            # obj.save()
             messages.info(request, 'Complaint Registered Successfully')
             return redirect('chat_view_gue_admin')
     else:

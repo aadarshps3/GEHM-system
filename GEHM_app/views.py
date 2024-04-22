@@ -22,6 +22,7 @@ def loginpage(request):
             elif  user.is_contractors:
                 return redirect('con_base')
             elif  user.is_guestemp:
+                request.session["name"]=username
                 return redirect('guest_emp_index')
         else:
             messages.info(request, 'Invalid Credentials')
