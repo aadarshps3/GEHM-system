@@ -71,4 +71,4 @@ class ChatFormGUE(forms.ModelForm):
 class PaymentFormEmp(forms.ModelForm):
     class Meta:
         model=Payment
-        fields = '__all__'
+        exclude = ('user',)

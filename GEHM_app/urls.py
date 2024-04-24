@@ -1,6 +1,7 @@
 from django.urls import path
 
 from GEHM_app import views, admin_view, contractor_view, guest
+from GEHM_app.admin_view import employee_details_by_month, con_details_by_month
 
 urlpatterns=[
     path('',views.home,name='home'),
@@ -29,6 +30,11 @@ urlpatterns=[
     path('sent_job/<int:id>/', admin_view.sent_job, name='sent_job'),
     path('view_chat_Emp/<Name>/', admin_view.view_chat_Emp, name='view_chat_Emp'),
     path('view_chat_Contra/<Name>/', admin_view.view_chat_Contra, name='view_chat_Contra'),
+    path('join_report', admin_view.join_report, name='join_report'),
+    path('employee-details/<int:month>/', employee_details_by_month, name='employee_details'),
+    path('join_report_con', admin_view.join_report_con, name='join_report_con'),
+    path('join_reportCon', admin_view.join_reportCon, name='join_reportCon'),
+    path('con_details/<int:month>/', con_details_by_month, name='con_details'),
 
 
 

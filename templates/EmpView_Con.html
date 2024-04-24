@@ -59,7 +59,7 @@
         <th scope="col">JOB PREFERENCE</th>
         <th scope="col">PHOTO</th>
         <th scope="col">ADHAR</th>
-        <th scope="col">CONNECT</th>
+<!--        <th scope="col">CONNECT</th>-->
     </tr>
                 </thead>
                 <tbody>
@@ -73,15 +73,15 @@
         <td>{{i.Job_Preference}}</td>
         <td><img src="{{ i.Photo.url }}" height="80px"></td>
         <td><a href="{{i.Adhar.url}}" download>Download File</a>
-        <td>
-         {% if i.approval_status == 0 %}
-            <a class="btn-sm btn btn-danger " href="{% url 'Sort_Employee' i.user_id  %}">Sort</a>
-            {% elif i.approval_status == 1 %}
-            <button class="btn-sm btn btn-primary">Sorted</button>
-            {% else %}
-            <button class="btn-sm btn btn-warning ">Rejected</button>
-            {% endif %}
-    </td>
+<!--        <td>-->
+<!--         {% if i.approval_status == 0 %}-->
+<!--            <a class="btn-sm btn btn-danger " href="{% url 'Sort_Employee' i.user_id  %}">Sort</a>-->
+<!--            {% elif i.approval_status == 1 %}-->
+<!--            <button class="btn-sm btn btn-primary">Sorted</button>-->
+<!--            {% else %}-->
+<!--            <button class="btn-sm btn btn-warning ">Rejected</button>-->
+<!--            {% endif %}-->
+<!--    </td>-->
 
     </tr>
     {% endfor %}

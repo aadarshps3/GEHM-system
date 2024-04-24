@@ -1,0 +1,16 @@
+{% extends 'adminindex.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Join Report</h1>
+    <ul class="list-group mt-4">
+        {% for month_number, month_name in month_map.items %}
+            <li class="list-group-item">
+                <a class="btn btn-primary" href="{% url 'con_details' month=month_number %}">
+                    {{ month_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

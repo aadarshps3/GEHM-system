@@ -16,6 +16,7 @@ class Contractor(models.Model):
     Home_Address=models.CharField(max_length=255)
     Company_Address=models.CharField(max_length=255)
     Profile_photo=models.ImageField(upload_to='profile_contractor')
+    reg_date = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.Name
@@ -31,6 +32,7 @@ class GuestEmployee(models.Model):
     Experiance=models.CharField(max_length=2)
     Skills=models.TextField()
     Job_Preference=models.CharField(max_length=200)
+    reg_date = models.DateField(auto_now=True)
     approval_status = models.BooleanField(default=0)
 
     def __str__(self):
@@ -95,6 +97,7 @@ class Message(models.Model):
 class Jobs(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    salary_scale = models.CharField(max_length=100)
     contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -111,7 +114,8 @@ class JobApplication(models.Model):
         return f"{self.applicant.name} applied for {self.job.title}"
 
 class Payment(models.Model):
-    user=models.ForeignKey(GuestEmployee,on_delete=models.CASCADE,related_name='PaymentEmp',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='CON')
+    Employee=models.ForeignKey(GuestEmployee,on_delete=models.CASCADE,related_name='PaymentEmp',null=True)
     Card_Number=models.CharField(max_length=100)
     MM_YY=models.CharField(max_length=50)
     CVV=models.CharField(max_length=50)

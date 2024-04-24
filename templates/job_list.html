@@ -6,6 +6,7 @@
             <li>
                 <h2>{{ job.title }}</h2>
                 <p>{{ job.description }}</p>
+                <p>Salary :{{ job.salary_scale }}</p>
                 <p>Contractor: {{ job.contractor }}</p>
                 <p>Created at: {{ job.created_at }}</p>
                 <a href="{% url 'job_detail' job.id %}">View Details</a>

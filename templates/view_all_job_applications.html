@@ -19,6 +19,7 @@
                       <tr>
                           <th>SI No</th>
                           <th>EMPLOYEE NAME</th>
+                          <th>EMPLOYEE EXPERIENCE</th>
                           <th>JOB PREFERENCE</th>
                           <th>APPLICANT</th>
                           <th>APPLIED DATE</th>
@@ -29,7 +30,8 @@
                         {% for f in job_applications %}
                         <tr>
                             <td>{{forloop.counter}}</td>
-                            <td>{{f.applicant.user}}</td>
+                            <td>{{f.applicant.Name}}</td>
+                            <td>{{f.applicant.Experiance}}</td>
                             <td>{{f.job}}</td>
                             <td>{{f.job.contractor}}</td>
                             <td>{{f.applied_at}}</td>

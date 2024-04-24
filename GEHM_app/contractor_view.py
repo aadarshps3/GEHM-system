@@ -11,26 +11,31 @@ from GEHM_app.models import chats as chats_db
 
 
 def con_base(request):
-    return render(request,'con_base.html')
+    return render(request, 'con_base.html')
+
+
 def pay_reg_fee(request):
-    form=PaymentForm()
-    if request.method=='POST':
-        form=PaymentForm(request.POST)
+    form = PaymentForm()
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
         if form.is_valid():
             form.save()
             messages.info(request, ' Payment Completed Successfully')
-            return redirect('pay_reg_fee')
-    return render(request,'pay_reg_fee.html',{'form':form})
+            return redirect('registerpage')
+    return render(request, 'pay_reg_fee.html', {'form': form})
+
 
 def payment_view(request):
-    data=Regfee.objects.all()
-    return render(request,'payment_view.html',{'data':data})
+    data = Regfee.objects.all()
+    return render(request, 'payment_view.html', {'data': data})
+
 
 @csrf_exempt
 def stripe_config(request):
     if request.method == 'GET':
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
         return JsonResponse(stripe_config, safe=False)
+
 
 @csrf_exempt
 def create_checkout_session(request):
@@ -65,26 +70,31 @@ def create_checkout_session(request):
         except Exception as e:
             return JsonResponse({'error': str(e)})
 
+
 def job_view(request):
-    return render(request,'job_base.html')
+    return render(request, 'job_base.html')
+
 
 def add_jobpref(request):
-    form=JobForm()
-    if request.method=='POST':
-        form=JobForm(request.POST)
+    form = JobForm()
+    if request.method == 'POST':
+        form = JobForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.info(request,"Job Preference Addedd Successfully")
+            messages.info(request, "Job Preference Addedd Successfully")
             return redirect('add_jobpref')
-    return render(request,'add_jobpref.html',{'form':form})
+    return render(request, 'add_jobpref.html', {'form': form})
+
 
 def view_job(request):
-    data=Job.objects.all()
-    return render(request,'view_job.html',{'data':data})
+    data = Job.objects.all()
+    return render(request, 'view_job.html', {'data': data})
+
 
 def view_profile(request):
-    data=Contractor.objects.get(user=request.user)
-    return render(request,'view_profile.html',{'data':data})
+    data = Contractor.objects.get(user=request.user)
+    return render(request, 'view_profile.html', {'data': data})
+
 
 def edit_profile(request):
     profile = Contractor.objects.get(user=request.user)
@@ -124,18 +134,20 @@ def edit_profile(request):
 #     return render(request, 'EmpView_Con.html', {'employees': employees,'data':data})
 
 def search_emp(request):
-    Skills=request.GET.get('Skills')
-    employee=GuestEmployee.objects.all()
+    Skills = request.GET.get('Skills')
+    employee = GuestEmployee.objects.all()
     if Skills:
-        employee=employee.filter(Skills__icontains=Skills)
-    context={
-        'form':SearchForm(),
-        'data':employee
+        employee = employee.filter(Skills__icontains=Skills)
+    context = {
+        'form': SearchForm(),
+        'data': employee
     }
-    return render(request,'EmpView_Con.html', context)
+    return render(request, 'EmpView_Con.html', context)
+
 
 def chat_base(request):
-    return render(request,'chatpage.html')
+    return render(request, 'chatpage.html')
+
 
 def chat_add_con(request):
     form = ChatForm()
@@ -153,17 +165,20 @@ def chat_add_con(request):
             return redirect('chat_view_con')
     else:
         form = ChatForm()
-    return render(request,'chat_add_con.html',{'form':form})
+    return render(request, 'chat_add_con.html', {'form': form})
+
 
 def chat_view_con(request):
     u = Contractor.objects.get(user=request.user)
     id = "admin_" + u.Name
     data = chats_db.objects.filter(chat_id=id)
-    return render(request,'chat_view_con.html',{'chat':data})
+    return render(request, 'chat_view_con.html', {'chat': data})
+
 
 def Enquiry_contractor(request):
     f = Enquiry.objects.all()
     return render(request, 'Enquiry_contractor.html', {'feedback': f})
+
 
 def reply_enquiry(request, id):
     f = Enquiry.objects.get(id=id)
@@ -175,13 +190,13 @@ def reply_enquiry(request, id):
         return redirect('Enquiry_contractor')
     return render(request, 'reply_enquiry.html', {'feedback': f})
 
-def Sort_Employee(request,id):
+
+def Sort_Employee(request, id):
     emp = GuestEmployee.objects.get(user_id=id)
     emp.approval_status = True
     emp.save()
-    messages.info(request,'approved')
+    messages.info(request, 'approved')
     return redirect('search_emp')
-
 
 
 def add_job_con(request):
@@ -191,18 +206,19 @@ def add_job_con(request):
             job = form.save(commit=False)
             job.contractor = request.user.contractor
             job.save()
-            messages.info(request,"Job Prefference Added Successfully")
+            messages.info(request, "Job Prefference Added Successfully")
             return redirect('add_job_con')  # Redirect to the job list page
     else:
         form = JobForm()
     return render(request, 'add_job.html', {'form': form})
+
 
 def sented_job(request):
     user = request.user
     if hasattr(user, 'contractor'):
         try:
             contractor_jobs = Jobs.objects.filter(contractor=user.contractor)
-            job_applications = JobApplication.objects.filter(job__in=contractor_jobs,approval_status=1)
+            job_applications = JobApplication.objects.filter(job__in=contractor_jobs, approval_status=1)
             return render(request, 'sented_job.html', {'job_applications': job_applications})
         except Jobs.DoesNotExist:
             # Handle case where no jobs are found for the contractor
@@ -213,15 +229,20 @@ def sented_job(request):
 
 
 def pay_emp_fee(request):
-    form=PaymentFormEmp()
-    if request.method=='POST':
-        form=PaymentFormEmp(request.POST)
+    u=request.user
+    print(u)
+    form = PaymentFormEmp()
+    if request.method == 'POST':
+        form = PaymentFormEmp(request.POST)
         if form.is_valid():
-            form.save()
-            messages.info(request,"Payment Added Successfully")
+            data=form.save(commit=False)
+            data.user=u
+            data.save()
+            messages.info(request, "Payment Added Successfully")
             return redirect('pay_emp_fee')
-    return render(request,'pay_emp_fee.html',{'form':form})
+    return render(request, 'pay_emp_fee.html', {'form': form})
+
 
 def payment_viewemp(request):
-    data=Payment.objects.all()
-    return render(request,'payment_viewemp.html',{'data':data})
+    data = Payment.objects.filter(user=request.user)
+    return render(request, 'payment_viewemp.html', {'data': data})
